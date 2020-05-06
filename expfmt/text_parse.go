@@ -481,10 +481,11 @@ func (p *TextParser) startTimestamp() stateFn {
 // readingHelp represents the state where the last byte read (now in
 // p.currentByte) is the first byte of the docstring after 'HELP'.
 func (p *TextParser) readingHelp() stateFn {
-	if p.currentMF.Help != nil {
-		p.parseError(fmt.Sprintf("second HELP line for metric name %q", p.currentMF.GetName()))
-		return nil
-	}
+	//ignore second help
+	//if p.currentMF.Help != nil {
+	//	p.parseError(fmt.Sprintf("second HELP line for metric name %q", p.currentMF.GetName()))
+	//	return nil
+	//}
 	// Rest of line is the docstring.
 	if p.readTokenUntilNewline(true); p.err != nil {
 		return nil // Unexpected end of input.
@@ -496,10 +497,11 @@ func (p *TextParser) readingHelp() stateFn {
 // readingType represents the state where the last byte read (now in
 // p.currentByte) is the first byte of the type hint after 'HELP'.
 func (p *TextParser) readingType() stateFn {
-	if p.currentMF.Type != nil {
-		p.parseError(fmt.Sprintf("second TYPE line for metric name %q, or TYPE reported after samples", p.currentMF.GetName()))
-		return nil
-	}
+	// ignore second type
+	//if p.currentMF.Type != nil {
+	//	p.parseError(fmt.Sprintf("second TYPE line for metric name %q, or TYPE reported after samples", p.currentMF.GetName()))
+	//	return nil
+	//}
 	// Rest of line is the type.
 	if p.readTokenUntilNewline(false); p.err != nil {
 		return nil // Unexpected end of input.
